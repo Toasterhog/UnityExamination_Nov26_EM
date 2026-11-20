@@ -41,7 +41,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem particleSystemFeetThrusters;
-    public UnityEvent activateParticles;
+    public UnityEvent<bool> activateParticles;
     
     void Awake()
     {
@@ -93,7 +93,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
         
         // Write movement animation code here. (Suggestion: send your current velocity into the Animator for both the x- and y-axis.)
         //animator.SetFloat("HorizontalMovement", moveInput.x);
-        animator.SetBool("walkBool", Mathf.Abs(moveInput.x) > 0.1);
+        animator.SetBool("walking", Mathf.Abs(moveInput.x) > 0.1);
         
         
         // Flip sprite according to direction (if a sprite renderer has been assigned)
@@ -167,14 +167,13 @@ public class CustomizablePlatformerMovement : MonoBehaviour
     // This method can be triggered through the UnityEvent in PlayerInput
     public void OnJump(InputAction.CallbackContext context)
     {
-        activateParticles?.Invoke();
         if (context.started && controlEnabled)
         {
             Debug.Log("Jump!");
             jumpInput = true;
             jumpReleased = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Play();
-            activateParticles?.Invoke();
+            activateParticles?.Invoke(true);
         }
 
         if (context.canceled && controlEnabled)
@@ -182,7 +181,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
             jumpReleased = true;
             jumpInput = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Stop();
-            activateParticles?.Invoke();
+            activateParticles?.Invoke(false);
         }
     }
 }
