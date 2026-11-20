@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7610835287738011238}
   m_Layer: 0
-  m_Name: "l\xE5da f\xF6relder f\xF6r transform animation"
+  m_Name: Animated Create
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
