@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -40,6 +41,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem particleSystemFeetThrusters;
+    public UnityEvent activateParticles;
     
     void Awake()
     {
@@ -165,12 +167,14 @@ public class CustomizablePlatformerMovement : MonoBehaviour
     // This method can be triggered through the UnityEvent in PlayerInput
     public void OnJump(InputAction.CallbackContext context)
     {
+        activateParticles?.Invoke();
         if (context.started && controlEnabled)
         {
             Debug.Log("Jump!");
             jumpInput = true;
             jumpReleased = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Play();
+            activateParticles?.Invoke();
         }
 
         if (context.canceled && controlEnabled)
@@ -178,6 +182,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
             jumpReleased = true;
             jumpInput = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Stop();
+            activateParticles?.Invoke();
         }
     }
 }
