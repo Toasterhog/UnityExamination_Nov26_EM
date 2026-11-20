@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class HatPickup : MonoBehaviour
 {
-    public GameObject Player;
+    public GameObject Player = default;
 
-    public GameObject Hat;
+    public GameObject HatSprite = new GameObject();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +19,14 @@ public class HatPickup : MonoBehaviour
 
     public void OnPickup()
     {
-        GameObject hat = Instantiate(Hat, Player.transform.position, Player.transform.rotation);
+        if (HatSprite is null || Player is null) return;
+        GameObject hat = Instantiate(
+            HatSprite,
+            Player.transform.position,
+            Player.transform.rotation,
+            Player.transform
+        );
+        hat.transform.localPosition = new Vector3(0, 1, 0);
         hat.SetActive(true);
     }
 }
