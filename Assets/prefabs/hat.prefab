@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 22288064061523501}
   m_Layer: 0
   m_Name: hat
-  m_TagString: Untagged
+  m_TagString: Hat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,6 +164,10 @@ PrefabInstance:
     - target: {fileID: 7257103193017887163, guid: f82dd42a551377a4999b38ca77179975, type: 3}
       propertyPath: m_Name
       value: Hat Sprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257103193017887163, guid: f82dd42a551377a4999b38ca77179975, type: 3}
+      propertyPath: m_TagString
+      value: Hat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

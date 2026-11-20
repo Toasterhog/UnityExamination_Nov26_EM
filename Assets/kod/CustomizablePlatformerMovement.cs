@@ -41,7 +41,9 @@ public class CustomizablePlatformerMovement : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator animator;
     [SerializeField] private ParticleSystem particleSystemFeetThrusters;
-    public UnityEvent<bool> activateParticles;
+    public UnityEvent activateParticles;
+    public UnityEvent deactivateParticles;
+    
     
     void Awake()
     {
@@ -173,7 +175,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
             jumpInput = true;
             jumpReleased = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Play();
-            activateParticles?.Invoke(true);
+            activateParticles?.Invoke();
         }
 
         if (context.canceled && controlEnabled)
@@ -181,7 +183,7 @@ public class CustomizablePlatformerMovement : MonoBehaviour
             jumpReleased = true;
             jumpInput = false;
             if(particleSystemFeetThrusters is not null) particleSystemFeetThrusters.Stop();
-            activateParticles?.Invoke(false);
+            deactivateParticles?.Invoke();
         }
     }
 }
